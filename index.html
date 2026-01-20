@@ -3,212 +3,109 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Year 3 Portfolio — Your Name</title>
-  <meta name="description" content="Year 3 portfolio website with Entry #1: Summer Updates (3 highlights + 1 lowlight)." />
-  <style>
-    :root {
-      --bg: #0b1020;
-      --panel: #111831;
-      --muted: #8aa0c2;
-      --text: #ecf2ff;
-      --accent: #7aa2ff;
-      --accent-2: #62d2a2;
-      --warning: #ffcc66;
-      --danger: #ff7a7a;
-      --ring: rgba(122, 162, 255, 0.35);
-      --radius: 18px;
-      --shadow: 0 10px 25px rgba(0,0,0,0.35);
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0; font: 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Inter,"Helvetica Neue",Arial,sans-serif;
-      color: var(--text); background: radial-gradient(1200px 800px at 20% -20%, #1a2350 0%, var(--bg) 60%), var(--bg);
-    }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
-
-    header.site-header {
-      position: sticky; top: 0; z-index: 20; backdrop-filter: saturate(1.2) blur(8px);
-      background: linear-gradient(180deg, rgba(9,13,26,0.9), rgba(9,13,26,0.6));
-      border-bottom: 1px solid rgba(122,162,255,0.15);
-    }
-    .nav {
-      display: flex; align-items: center; gap: 16px; justify-content: space-between;
-    }
-    .brand { display:flex; align-items:center; gap:12px; }
-    .logo {
-      width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 6px 18px var(--ring);
-    }
-    .brand h1 { font-size: 1.05rem; margin: 0; letter-spacing: 0.2px; font-weight: 700; }
-    .menu { display:flex; gap: 10px; }
-    .menu a { padding: 10px 14px; border-radius: 12px; border: 1px solid transparent; }
-    .menu a:hover { background: rgba(122,162,255,0.08); border-color: rgba(122,162,255,0.15); text-decoration: none; }
-
-    .hero {
-      display:grid; grid-template-columns: 1fr; gap: 18px; margin-top: 22px; align-items: center;
-      background: linear-gradient(180deg, rgba(17,24,49,0.8), rgba(17,24,49,0.5));
-      border: 1px solid rgba(122,162,255,0.15); border-radius: var(--radius); box-shadow: var(--shadow);
-      padding: 28px; position: relative; overflow: hidden;
-    }
-    .hero::after { content:""; position:absolute; inset:-2px; background: radial-gradient(700px 300px at 120% -10%, rgba(122,162,255,0.15), transparent 60%); pointer-events:none; }
-    .hero h2 { font-size: clamp(1.25rem, 2.5vw, 1.8rem); margin: 0; }
-    .hero p { margin: 6px 0 0; color: var(--muted); }
-
-    .tools { display:flex; gap:10px; flex-wrap: wrap; margin-top: 10px; }
-    .btn { padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(122,162,255,0.2); background: rgba(122,162,255,0.06); color: var(--text); cursor: pointer; }
-    .btn:hover { background: rgba(122,162,255,0.12); }
-
-    section.entry { margin-top: 26px; }
-    section.entry > h3 { margin: 0 0 8px; font-size: 1rem; color: var(--muted); font-weight: 600; letter-spacing: 0.2px; }
-    section.entry > h2 { margin: 0 0 10px; font-size: clamp(1.2rem, 2.15vw, 1.6rem); }
-    section.entry > p.lead { margin: 0 0 18px; color: var(--muted); }
-
-    .grid { display:grid; gap: 16px; grid-template-columns: 1fr; }
-
-    .card { border-radius: var(--radius); border: 1px solid rgba(122,162,255,0.15); background: linear-gradient(180deg, rgba(15,22,45,0.85), rgba(15,22,45,0.6)); box-shadow: var(--shadow); overflow: hidden; }
-    .card:hover { outline: 2px solid rgba(122,162,255,0.15); }
-    .card .media { aspect-ratio: 16/9; width: 100%; object-fit: cover; display: block; background: #0a0f21; }
-    .content { padding: 16px; }
-    .tag { display:inline-block; font-size: 12px; padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(122,162,255,0.25); color: var(--muted); margin-bottom: 6px; }
-    .card h4 { margin: 4px 0 8px; font-size: 1rem; }
-    .card p { margin: 0; color: #cbd6ee; }
-
-    .lowlight { border-color: rgba(255,122,122,0.25); }
-    .lowlight .tag { border-color: rgba(255,122,122,0.4); color: #ffb3b3; }
-    .solution { margin-top: 10px; padding: 10px 12px; border-radius: 12px; background: rgba(98,210,162,0.1); border: 1px solid rgba(98,210,162,0.35); }
-
-    footer { margin: 28px 0 12px; color: var(--muted); text-align: center; font-size: 14px; }
-
-    @media (min-width: 720px) {
-      .grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 1024px) {
-      .grid { grid-template-columns: repeat(3, 1fr); }
-      .grid .lowlight-card { grid-column: span 3; }
-    }
-
-    /* Print-friendly tweaks */
-    @media print {
-      body { background: #fff; color: #000; }
-      header, .tools { display: none !important; }
-      .card { box-shadow: none; }
-      a { color: #000; text-decoration: underline; }
-    }
-  </style>
+  <title>Year 3 Portfolio — Home</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!--
-    HOW TO USE
-    1) Save this file as "index.html". Open it in your browser.
-    2) Replace "Your Name" in the <title> and on the page.
-    3) Swap each placeholder image source (src="images/highlight-1.jpg" etc.). Put your pictures in an "images" folder next to this file.
-    4) Edit the text in each card (3 highlights + 1 lowlight). Keep it to 2–4 sentences each.
-    5) When finished, click PRINT to save as a PDF for submission.
-
-    Tip: Add more entries later by duplicating the <section class="entry"> block.
-  -->
-
-  <header class="site-header">
-    <div class="wrap nav" role="navigation" aria-label="Main">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <h1>Year 3 Portfolio — <span contenteditable="true" aria-label="Your name">Your Name</span></h1>
+  <header class="site-head">
+    <div class="container head-inner" role="banner">
+      <div class="mark" aria-hidden="true">Y3</div>
+      <div>
+        <h1>Year 3 Portfolio</h1>
+        <p class="byline">by <span class="editable">Gerben Dezdari</span></p>
       </div>
-      <nav class="menu">
-        <a href="#home">Home</a>
-        <a href="#entry1">Summer Updates</a>
-      </nav>
     </div>
   </header>
 
-  <main id="home" class="wrap" tabindex="-1">
-    <section class="hero" aria-labelledby="intro-title">
-      <div>
-        <h2 id="intro-title">Welcome to my Year 3 Portfolio 👋</h2>
-        <p>Here I collect my learning highlights and reflections. Scroll down for my first entry: <em>Summer Updates</em>.</p>
-        <div class="tools">
-          <button class="btn" onclick="window.print()" aria-label="Print or save as PDF">🖨️ Print</button>
-          <button class="btn" id="toggleEdit" aria-pressed="false">✏️ Toggle edit mode</button>
-        </div>
-      </div>
+  <main class="container">
+    <section class="hero" aria-labelledby="welcome-title">
+      <h2 id="welcome-title">WELCOMMM</h2>
+      <p>Entries listed below :P</p>
     </section>
 
-    <section id="entry1" class="entry" aria-labelledby="entry1-title">
-      <h3>Portfolio Entry #1</h3>
-      <h2 id="entry1-title">Summer Updates</h2>
-      <p class="lead">Describe <strong>3 highlights</strong> from your summer (add pictures if you can), and <strong>1 lowlight</strong> with a possible solution.</p>
+    <h3 class="section-title" id="toc">Table of Contents</h3>
 
-      <div class="grid">
-        <!-- Highlight 1 -->
-        <article class="card" aria-labelledby="h1-title">
-          <img class="media" src="images/highlight-1.jpg" alt="[Describe the photo for accessibility]" />
-          <div class="content">
-            <span class="tag" aria-hidden="true">Highlight</span>
-            <h4 id="h1-title" contenteditable="true">Highlight #1 — Title</h4>
-            <p contenteditable="true">What happened? Where were you? Who was with you? Why did this matter to you? (2–4 sentences.)</p>
-          </div>
-        </article>
+    <div class="grid" aria-labelledby="toc" role="list">
+      <!-- Each entry is a separate link-card (content preserved, design brand‑new) -->
+      <a class="card" role="listitem" href="summer-update.html">
+        <span class="kicker">Entry #1</span>
+        <span class="title">Summer Updates</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="card" role="listitem" href="Historical-Mystery.html">
+        <span class="kicker">Entry #2</span>
+        <span class="title">Historical Mystery</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="card" role="listitem" href="Emotions.html">
+        <span class="kicker">Entry #3</span>
+        <span class="title">Newer Entry</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
 
-        <!-- Highlight 2 -->
-        <article class="card" aria-labelledby="h2-title">
-          <img class="media" src="images/highlight-2.jpg" alt="[Describe the photo for accessibility]" />
-          <div class="content">
-            <span class="tag" aria-hidden="true">Highlight</span>
-            <h4 id="h2-title" contenteditable="true">Highlight #2 — Title</h4>
-            <p contenteditable="true">Tell the story in a few sentences. What did you learn or feel?</p>
-          </div>
-        </article>
-
-        <!-- Highlight 3 -->
-        <article class="card" aria-labelledby="h3-title">
-          <img class="media" src="images/highlight-3.jpg" alt="[Describe the photo for accessibility]" />
-          <div class="content">
-            <span class="tag" aria-hidden="true">Highlight</span>
-            <h4 id="h3-title" contenteditable="true">Highlight #3 — Title</h4>
-            <p contenteditable="true">Add a short description. Tip: mention one sensory detail (a sound, smell, or color) to make it vivid.</p>
-          </div>
-        </article>
-
-        <!-- Lowlight -->
-        <article class="card lowlight lowlight-card" aria-labelledby="low-title">
-          <img class="media" src="images/lowlight.jpg" alt="[Describe the photo for accessibility]" />
-          <div class="content">
-            <span class="tag" aria-hidden="true">Lowlight</span>
-            <h4 id="low-title" contenteditable="true">Lowlight — What was tricky</h4>
-            <p contenteditable="true">Describe the challenge in 1–2 sentences. Be honest and specific.</p>
-            <p class="solution" contenteditable="true"><strong>My solution:</strong> Explain what you did (or will do) to improve this. Keep it realistic and kind to yourself.</p>
-          </div>
-        </article>
-      </div>
-    </section>
+      <!-- Duplicates kept to match provided content exactly -->
+      <a class="card" role="listitem" href="Emotions.html">
+        <span class="kicker">Entry #3</span>
+        <span class="title">Newer Entry</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="card" role="listitem" href="summer-update.html">
+        <span class="kicker">Entry #1</span>
+        <span class="title">Summer Updates</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="card" role="listitem" href="Historical-Mystery.html">
+        <span class="kicker">Entry #2</span>
+        <span class="title">Newer Entry</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="card" role="listitem" href="Emotions.html">
+        <span class="kicker">Entry #3</span>
+        <span class="title">Newer Entry</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="card" role="listitem" href="Emotions.html">
+        <span class="kicker">Entry #3</span>
+        <span class="title">Newer Entry</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="card" role="listitem" href="summer-update.html">
+        <span class="kicker">Entry #1</span>
+        <span class="title">Summer Updates</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="card" role="listitem" href="Historical-Mystery.html">
+        <span class="kicker">Entry #2</span>
+        <span class="title">Newer Entry</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="card" role="listitem" href="Emotions.html">
+        <span class="kicker">Entry #3</span>
+        <span class="title">Newer Entry</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="card" role="listitem" href="Emotions.html">
+        <span class="kicker">Entry #3</span>
+        <span class="title">Newer Entry</span>
+        <span class="desc">Three highlights and one lowlight with a solution.</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
   </main>
 
   <footer>
-    <div class="wrap">© <span id="year"></span> <span contenteditable="true">Your Name</span>. Built with HTML & CSS.</div>
+    <div class="container">© 2025 <span class="editable">Gerben Dezdari</span> — All Rights Reserved</div>
   </footer>
-
-  <script>
-    // Live year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Toggle contenteditable for quick edits
-    const toggleBtn = document.getElementById('toggleEdit');
-    const editable = () => document.querySelectorAll('[contenteditable]');
-
-    function setEditable(enabled) {
-      editable().forEach(el => el.setAttribute('contenteditable', enabled ? 'true' : 'false'));
-      toggleBtn.setAttribute('aria-pressed', String(enabled));
-      toggleBtn.textContent = enabled ? '✅ Editing on' : '✏️ Toggle edit mode';
-    }
-    let editing = true; // start enabled so it’s easy to type
-    setEditable(editing);
-    toggleBtn.addEventListener('click', () => {
-      editing = !editing; setEditable(editing);
-    });
-  </script>
 </body>
 </html>
