@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entry #6 – Best of 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --card-hover: #222;
+      --text: #f5f5f5;
+      --muted: #888;
+      --accent: #1db954;
+      --accent-dim: rgba(29, 185, 84, 0.15);
+      --pink: #e91e8c;
+      --orange: #ff6b35;
+      --blue: #4a9eff;
+      --purple: #a855f7;
+      --border: rgba(255,255,255,0.08);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* Gradient Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 600px;
+      background: radial-gradient(ellipse at 30% 0%, rgba(29, 185, 84, 0.12) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 0%, rgba(233, 30, 140, 0.08) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    header {
+      padding: 1.5rem 0;
+      position: sticky;
+      top: 0;
+      background: rgba(15, 15, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 50;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .back {
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+      background: var(--card);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    .back:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    .header-title h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .header-title p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+
+    .hero-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .hero h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Pitchfork Link */
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .source-link:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+    }
+
+    .source-link span {
+      color: var(--accent);
+    }
+
+    /* Questions Section */
+    .questions {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem 0 4rem;
+    }
+
+    .question-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .question-card:hover {
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .question-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .question-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 0.4rem 0.7rem;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .question-card:nth-child(2) .question-number { background: var(--pink); }
+    .question-card:nth-child(3) .question-number { background: var(--orange); }
+    .question-card:nth-child(4) .question-number { background: var(--blue); }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* Answer Section - EDIT YOUR ANSWERS IN THE <p class="answer"> TAGS */
+    .answer {
+      background: rgba(0,0,0,0.3);
+      border-left: 3px solid var(--accent);
+      padding: 1.2rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .question-card:nth-child(2) .answer { border-left-color: var(--pink); }
+    .question-card:nth-child(3) .answer { border-left-color: var(--orange); }
+    .question-card:nth-child(4) .answer { border-left-color: var(--blue); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-card {
+      animation: fadeIn 0.5s ease backwards;
+    }
+
+    .question-card:nth-child(1) { animation-delay: 0.1s; }
+    .question-card:nth-child(2) { animation-delay: 0.2s; }
+    .question-card:nth-child(3) { animation-delay: 0.3s; }
+    .question-card:nth-child(4) { animation-delay: 0.4s; }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .question-card {
+        padding: 1.5rem;
+      }
+
+      .question-header {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .answer {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <a class="back" href="index.html">← Back</a>
+      <div class="header-title">
+        <h1>Entry #6: Best of 2025</h1>
+        <p>Music, moments, and memories</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="hero-icon"></span>
+      <h2>Best of 2025</h2>
+      <p>Exploring Pitchfork's top albums of the year and reflecting on my own highlights.</p>
+      <a class="source-link" href="https://pitchfork.com/features/lists-and-guides/best-albums-2025/" target="_blank" rel="noopener">
+        Pitchfork's Best 50 Albums of 2025
+      </a>
+    </section>
+
+    <div class="questions">
+      <!-- QUESTION 1 -->
+      <article class="question-card">
+        <div class="question-header">
+          <span class="question-number">Q1</span>
+          <p class="question-text">Have you heard any albums from Pitchfork's Best Albums of 2025 list? What did you think about them?</p>
+        </div>
+        <p class="answer">
+        I've heard of many albums that released this year, like from Bad Bunny, PinkPantheress, Alex G and a couple of other artists. They surely weren't their best albums, but they were quite nice.
+        </p>
+      </article>
+
+      <!-- QUESTION 2 -->
+      <article class="question-card">
+        <div class="question-header">
+          <span class="question-number">Q2</span>
+          <p class="question-text">Which 2025 albums from the list did you listen to, and which one did you like the most? Why?</p>
+        </div>
+        <p class="answer">
+        I've listened to "MUSIC" by Playboi Carti, "Fanc That" by PinkPantheress and "DeBÍ TiRAR MáS FOToS" by Bad Bunny. I have to be honest, I really had to listen to MUSIC many times, until I finally was able to like it. I only liked a couple of songs on the other albums, some were good some were bad.  
+        </p>
+      </article>
+
+      <!-- QUESTION 3 -->
+      <article class="question-card">
+        <div class="question-header">
+          <span class="question-number">Q3</span>
+          <p class="question-text">Are there any albums from 2025 NOT on this list which you think should be? Which ones, and why?</p>
+        </div>
+        <p class="answer">
+        I think the Album from Drake and PARTYNEXTDOOR "$ome $exy $ongs 4 U" shouldve definitely been in the Top 50 somewhere. It's the same scenario with MUSIC that I needed multiple sessions until I liked it, but after that I really enjoyed every song from the album. The album was really booming on social media, I really heard every song every day on TikTok or Instagram.
+        </p>
+      </article>
+
+      <!-- QUESTION 4 -->
+      <article class="question-card">
+        <div class="question-header">
+          <span class="question-number">Q4</span>
+          <p class="question-text">Aside from music, what were some of the BEST things of 2025 for you? Make a list of 3-5 things.</p>
+        </div>
+        <p class="answer">
+            NO GLAZE, but I think one of the best things in 2025 were the english classes, because they were always so chill and I really enjoyed the time I could spend with my friends and also learn something. I also loved summer vacation, even though I was in Albania again, like the other 15 years, I still enjoyed it more the other times. It felt like I was more concious about everything and I just love to do absolutely nothing and just chill the whole day at the beach or on the balcony. I also loved the China trip I had. I just loved it living like a millionaire and exploring such a different culture. 
+        </p>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Gerben Dezdari</div>
+  </footer>
+</body>
+</html>

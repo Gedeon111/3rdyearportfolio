@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entry #7 – Freestyle: The F-22 Raptor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0c10;
+      --card: #111318;
+      --text: #e8eaed;
+      --muted: #6b7280;
+      --accent: #00d4ff;
+      --accent-dim: rgba(0, 212, 255, 0.1);
+      --orange: #ff6b35;
+      --border: rgba(0, 212, 255, 0.15);
+      --glow: rgba(0, 212, 255, 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Radial Glow */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 100vh;
+      background: 
+        radial-gradient(ellipse at 50% 0%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(255, 107, 53, 0.05) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    header {
+      padding: 1.5rem 0;
+      position: sticky;
+      top: 0;
+      background: rgba(10, 12, 16, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 50;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .back {
+      text-decoration: none;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      background: transparent;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .back:hover {
+      background: var(--accent);
+      color: var(--bg);
+      box-shadow: 0 0 20px var(--glow);
+    }
+
+    .header-title h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .header-title p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* Hero Section with Animation */
+    .hero {
+      position: relative;
+      height: 70vh;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Sky/Clouds Background */
+    .sky-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        linear-gradient(180deg, 
+          #0a1628 0%, 
+          #1a3a5c 30%, 
+          #4a7c9b 60%, 
+          #87a9c4 80%,
+          #b8d4e8 100%);
+      z-index: 0;
+    }
+
+    /* Animated Clouds */
+    .clouds {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cloud {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 100px;
+      filter: blur(20px);
+    }
+
+    .cloud:nth-child(1) {
+      width: 400px; height: 80px;
+      top: 20%; left: -400px;
+      animation: cloudMove 25s linear infinite;
+    }
+
+    .cloud:nth-child(2) {
+      width: 300px; height: 60px;
+      top: 40%; left: -300px;
+      animation: cloudMove 20s linear infinite;
+      animation-delay: -5s;
+    }
+
+    .cloud:nth-child(3) {
+      width: 500px; height: 100px;
+      top: 60%; left: -500px;
+      animation: cloudMove 30s linear infinite;
+      animation-delay: -10s;
+    }
+
+    .cloud:nth-child(4) {
+      width: 250px; height: 50px;
+      top: 75%; left: -250px;
+      animation: cloudMove 18s linear infinite;
+      animation-delay: -3s;
+    }
+
+    @keyframes cloudMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(100vw + 500px)); }
+    }
+
+    /* F-22 Real Image Animation */
+    .jet-container {
+      position: absolute;
+      top: 50%;
+      left: -400px;
+      transform: translateY(-50%);
+      z-index: 2;
+      animation: jetFly 15s ease-in-out infinite;
+    }
+
+    @keyframes jetFly {
+      0% { 
+        left: -300px; 
+        top: 55%;
+        transform: translateY(-50%) scale(0.7);
+      }
+      30% { 
+        top: 45%;
+        transform: translateY(-50%) scale(0.9);
+      }
+      50% { 
+        left: 50%;
+        top: 48%;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+      }
+      70% { 
+        top: 42%;
+        transform: translateY(-50%) scale(0.9);
+      }
+      100% { 
+        left: calc(100% + 300px); 
+        top: 50%;
+        transform: translateY(-50%) scale(0.7);
+      }
+    }
+
+    .f22-image {
+      width: auto;
+      height: 280px;
+      filter: drop-shadow(0 20px 50px rgba(0,0,0,0.7));
+      object-fit: contain;
+      transform: rotate(90deg);
+    }
+
+    /* Contrail Effect */
+    .jet-container::after {
+      content: '';
+      position: absolute;
+      right: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1200px;
+      height: 8px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 20%, rgba(255,255,255,0.15) 60%, rgba(255,255,255,0.4) 100%);
+      border-radius: 4px;
+      filter: blur(4px);
+    }
+
+    /* Hero Text */
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero-badge {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      border: 1px solid var(--accent);
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+      color: white;
+      text-shadow: 0 0 60px rgba(0, 212, 255, 0.5), 0 4px 20px rgba(0,0,0,0.8);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h2 span {
+      display: block;
+      font-size: 0.4em;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-shadow: 0 0 30px var(--glow);
+    }
+
+    /* Content Section */
+    .content-section {
+      padding: 4rem 0;
+    }
+
+    .content-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--orange), var(--accent));
+    }
+
+    /* Classified Stamp */
+    .classified-stamp {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--orange);
+      border: 2px solid var(--orange);
+      padding: 0.3rem 0.8rem;
+      transform: rotate(12deg);
+      opacity: 0.7;
+    }
+
+    .content-text {
+      font-size: 1.15rem;
+      line-height: 2;
+      color: var(--text);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .stat-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-shadow: 0 0 20px var(--glow);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.3rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        height: 50vh;
+        min-height: 400px;
+      }
+
+      .f22-jet {
+        width: 180px;
+      }
+
+      .content-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .classified-stamp {
+        position: static;
+        transform: none;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <a class="back" href="index.html">← Back</a>
+      <div class="header-title">
+        <h1>Entry #7: Freestyle</h1>
+        <p>A topic I'm passionate about</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Animated Hero with Flying F-22 -->
+  <section class="hero">
+    <div class="sky-bg"></div>
+    <div class="clouds">
+      <div class="cloud"></div>
+      <div class="cloud"></div>
+      <div class="cloud"></div>
+      <div class="cloud"></div>
+    </div>
+    
+    <!-- Animated F-22 Real Image -->
+    <div class="jet-container">
+      <img class="f22-image" src="f22-raptor.png" alt="F-22 Raptor in flight" />
+    </div>
+
+    <div class="hero-content">
+      <span class="hero-badge">5th Generation Fighter</span>
+      <h2>F-22 Raptor<span>THE GOAT</span></h2>
+    </div>
+  </section>
+
+  <main class="container content-section">
+    <article class="content-card">
+      <span class="classified-stamp">FREESTYLE</span>
+      
+      <p class="content-text">
+        Many of yall didnt know this … the F-22 Raptor is a 5th-generation fighter jet, which basically means it was built to fight wars before the enemy even realizes one started. Designed and built by Lockheed Martin for the U.S. Air Force, this jet is pure overkill and that's exactly why it fascinates me. The design is the first giveaway that this thing plays a different game. Every sharp angle, flat surface, and weird-looking curve exists for stealth. The F-22 doesn't carry weapons on the outside. Everything is hidden inside to keep its radar signature tiny. On enemy radar, it doesn't look like a fighter jet it looks more like a bird… or a bug… or a radar glitch. Imagine spending billions on air defense just to get clapped by what looks like a flying mosquito. Now here's the twist, despite how agile it is, the F-22 is not meant for dogfighting. Sure, it can do insane maneuvers thanks to thrust vectoring, but its real goal is to erase the enemy before they even know it's there. Using its AN/APG-77 AESA radar, the jet can detect, track, and engage multiple targets from far away while staying almost invisible. Powering all this are two Pratt & Whitney F119 engines, letting the F-22 supercruise at around Mach 1.8 without afterburners and hit speeds up to Mach 2.25. Fast, quiet, and deadly. Fun facts? It has a perfect combat record, was never exported, and production stopped early because it was too advanced and too expensive. Honestly, what fascinates me most is how confident this jet is. It's not here to fight fair it's here to end the fight before it starts. This is exactly why it's THE GOAT. 
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value">MACH 2.25</div>
+          <div class="stat-label">Top Speed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">MACH 1.8</div>
+          <div class="stat-label">Supercruise</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Combat Record</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">195</div>
+          <div class="stat-label">Units Built</div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Gerben Dezdari</div>
+  </footer>
+</body>
+</html>

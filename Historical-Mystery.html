@@ -29,8 +29,9 @@
     /* Hero Image Section */
     .hero {
       position: relative;
-      height: 70vh;
-      min-height: 500px;
+      width: 100%;
+      height: 100vh;
+      min-height: 400px;
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -39,11 +40,16 @@
 
     .hero-image {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: 
-        linear-gradient(to bottom, rgba(15, 13, 10, 0) 0%, rgba(15, 13, 10, 0.3) 50%, rgba(15, 13, 10, 1) 100%),
-        url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/ca/c0/10/rozafa-castle.jpg?w=1200&h=-1&s=1') center/cover no-repeat;
-      filter: sepia(20%) saturate(80%);
+      top: 0; 
+      left: 0; 
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(to bottom, rgba(15, 13, 10, 0.2) 0%, rgba(15, 13, 10, 0.4) 50%, rgba(15, 13, 10, 0.95) 100%),
+        url('rozafa-castle.png');
+      background-size: cover;
+      background-position: center bottom;
+      background-repeat: no-repeat;
     }
 
     .hero-content {
@@ -381,15 +387,14 @@
 
       <section class="stance-section">
         <h2>My Perspective</h2>
-        <p>I find the legend of Rozafa Castle both tragic and inspiring. It captures the deep cultural values of sacrifice, loyalty, and resilience that are so important to Albanian heritage. The story of a mother's love transcending even death — her determination to care for her child despite her fate — resonates across cultures and generations.</p>
-        <p>While I admire the folklore and recognize its importance to my heritage, I personally believe the scientific explanation — mineral-rich water creating the white residue — best explains the physical mystery. But that doesn't diminish the legend's power. Stories like Rozafa's remind us that myths aren't about literal truth; they're about the values and emotions we pass down through generations.</p>
-        <p>The legend remains invaluable as a story that connects Albanians to their past and preserves a unique cultural identity that has survived empires, wars, and centuries of change.</p>
+        <p>I’ve known the legend of Rozafa Castle since I was a little kid, and growing up with it made it feel like more than just a story. It’s one of those legends that sticks with you, not because it’s scary or dramatic, but because it quietly carries so much meaning. For me, it plays a big role in my heritage and Albanian culture, shaping how I understand values like sacrifice, loyalty, and resilience.
+What makes the story hit so hard is the idea of a mother’s love outlasting everything, even death. Her determination to keep caring for her child, despite knowing her fate, feels universal. You don’t have to be Albanian to understand that kind of love, but knowing it comes from my own culture makes it feel personal. That said, I’m also realistic. I believe the scientific explanation , mineral-rich water creating the white residue, makes the most sense when it comes to the physical mystery. But honestly, that doesn’t take anything away from the legend. The power of the story was never about whether it was literally true. It’s about what it represents. Legends like Rozafa’s exist to pass down emotions, values, and identity. They remind us where we come from and what our culture has survived. Empires, wars, centuries of change snd still, the story remains. That’s why it matters. Not just as folklore, but as a piece of who we are.</p>
       </section>
     </article>
   </main>
 
   <footer>
-    <p>© 2025 Gerben Dezdari</p>
+    <p>© 2026 Gerben Dezdari</p>
   </footer>
 </body>
 </html>

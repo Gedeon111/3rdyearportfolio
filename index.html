@@ -3,486 +3,398 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Year 3 Portfolio — Gerben Dezdari</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+  <title>Entry #2 – The Mystery of Rozafa Castle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0a;
-      --text: #ffffff;
-      --muted: #666;
-      --accent-1: #ff3c00;
-      --accent-2: #00ff88;
-      --accent-3: #ffee00;
-      --accent-4: #ff00aa;
-      --accent-5: #00d4ff;
+      --bg: #0f0d0a;
+      --text: #e8e4dc;
+      --muted: #9a9488;
+      --accent: #c9a959;
+      --accent-dark: #8b7635;
+      --card: rgba(255, 255, 255, 0.03);
+      --border: rgba(201, 169, 89, 0.2);
     }
-    
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    html {
-      scroll-behavior: smooth;
-    }
-    
+
     body {
-      font-family: 'Clash Display', sans-serif;
+      font-family: 'Crimson Pro', Georgia, serif;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
+      line-height: 1.8;
+      font-size: 18px;
     }
 
-    /* Grain overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      opacity: 0.03;
-      pointer-events: none;
-      z-index: 100;
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 50;
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      mix-blend-mode: difference;
-    }
-
-    .logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    .year-badge {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      padding: 0.4rem 0.8rem;
-      border: 1px solid var(--text);
-      border-radius: 100px;
-    }
-
-    /* Hero Section */
+    /* Hero Image Section */
     .hero {
-      min-height: 100vh;
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 500px;
       display: flex;
-      flex-direction: column;
+      align-items: flex-end;
       justify-content: center;
-      align-items: center;
-      position: relative;
-      padding: 2rem;
+      overflow: hidden;
     }
 
-    .hero-title {
-      font-size: clamp(3rem, 15vw, 12rem);
-      font-weight: 800;
-      line-height: 0.9;
+    .hero-image {
+      position: absolute;
+      top: 0; 
+      left: 0; 
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(to bottom, rgba(15, 13, 10, 0) 0%, rgba(15, 13, 10, 0.3) 50%, rgba(15, 13, 10, 1) 100%),
+        url('rozafa-castle.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: sepia(20%) saturate(80%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
       text-align: center;
+      padding: 3rem 2rem;
+      max-width: 800px;
+    }
+
+    .hero-kicker {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      letter-spacing: -0.03em;
-      position: relative;
+      color: var(--accent);
+      margin-bottom: 1rem;
     }
 
-    .hero-title .line {
-      display: block;
-      position: relative;
-    }
-
-    .hero-title .line:nth-child(1) {
-      color: transparent;
-      -webkit-text-stroke: 2px var(--text);
-    }
-
-    .hero-title .line:nth-child(2) {
-      background: linear-gradient(90deg, var(--accent-1), var(--accent-4), var(--accent-3));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 1rem;
     }
 
     .hero-subtitle {
-      margin-top: 2rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.9rem;
+      font-style: italic;
       color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.3em;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 3rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--muted);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      animation: bounce 2s ease infinite;
-    }
-
-    .scroll-hint::after {
-      content: '↓';
       font-size: 1.2rem;
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(10px); }
-    }
-
-    /* Entries Section */
-    .entries-section {
-      padding: 6rem 2rem;
-      position: relative;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 4rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .section-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--muted);
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-    }
-
-    .entry-count {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--accent-2);
-    }
-
-    /* Entry Cards - Brutalist Style */
-    .entries-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .entry-card {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 2rem;
-      padding: 2rem;
-      background: var(--bg);
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
       text-decoration: none;
-      color: inherit;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      background: rgba(15, 13, 10, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 0.7rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    /* Intro Quote */
+    .intro-quote {
       position: relative;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 2rem 0;
+      margin-bottom: 3rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
-    .entry-card::before {
-      content: '';
+    .intro-quote::before {
+      content: '"';
+      font-family: 'Cinzel', serif;
+      font-size: 6rem;
+      color: var(--accent);
+      opacity: 0.3;
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 100%;
-      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 0;
+      top: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      line-height: 1;
     }
 
-    .entry-card:nth-child(1)::before { background: var(--accent-1); }
-    .entry-card:nth-child(2)::before { background: var(--accent-2); }
-    .entry-card:nth-child(3)::before { background: var(--accent-3); }
-    .entry-card:nth-child(4)::before { background: var(--accent-4); }
-    .entry-card:nth-child(5)::before { background: var(--accent-5); }
-
-    .entry-card:hover::before {
-      width: 100%;
-    }
-
-    .entry-card:hover {
-      color: var(--bg);
-    }
-
-    .entry-card:nth-child(3):hover,
-    .entry-card:nth-child(5):hover {
-      color: var(--bg);
-    }
-
-    .entry-card > * {
+    .intro-quote p {
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--muted);
       position: relative;
       z-index: 1;
     }
 
-    .entry-number {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      font-weight: 700;
-      width: 60px;
-      opacity: 0.4;
-      transition: opacity 0.3s ease;
-    }
-
-    .entry-card:hover .entry-number {
-      opacity: 1;
-    }
-
-    .entry-content {
+    /* Section Headers */
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin: 3rem 0 1.5rem;
       display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .entry-title {
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
+    h2::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
     }
 
-    .entry-desc {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      opacity: 0.5;
-      transition: opacity 0.3s ease;
+    /* Paragraphs */
+    .content p {
+      margin-bottom: 1.5rem;
+      text-align: justify;
     }
 
-    .entry-card:hover .entry-desc {
-      opacity: 0.8;
+    .content p.lead {
+      font-size: 1.2rem;
+      color: var(--text);
     }
 
-    .entry-arrow {
-      font-size: 2rem;
-      opacity: 0;
-      transform: translateX(-20px);
+    /* Theories Grid */
+    .theories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .theory-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.8rem;
+      position: relative;
       transition: all 0.3s ease;
     }
 
-    .entry-card:hover .entry-arrow {
-      opacity: 1;
-      transform: translateX(0);
+    .theory-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
 
-    /* Placeholder cards */
-    .entry-card.placeholder {
-      opacity: 0.3;
-      pointer-events: none;
+    .theory-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
     }
 
-    .entry-card.placeholder::before {
-      background: rgba(255,255,255,0.1);
+    .theory-card h3::before {
+      content: '◆';
+      font-size: 0.6rem;
+    }
+
+    .theory-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* My Stance Section */
+    .stance-section {
+      background: linear-gradient(135deg, rgba(201, 169, 89, 0.1), rgba(201, 169, 89, 0.02));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stance-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--accent-dark));
+    }
+
+    .stance-section h2 {
+      margin-top: 0;
+    }
+
+    .stance-section h2::before {
+      display: none;
+    }
+
+    /* Image Caption */
+    .image-credit {
+      text-align: center;
+      padding: 1rem 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-style: italic;
     }
 
     /* Footer */
     footer {
-      padding: 4rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .footer-text {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
       color: var(--muted);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .footer-links a {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--muted);
-      text-decoration: none;
-      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
       letter-spacing: 0.1em;
-      transition: color 0.3s ease;
     }
 
-    .footer-links a:hover {
-      color: var(--text);
+    /* Decorative Elements */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 3rem 0;
+      color: var(--accent);
+      opacity: 0.5;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      width: 60px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content {
+      animation: fadeIn 1s ease backwards;
+      animation-delay: 0.3s;
+    }
+
+    .content > * {
+      animation: fadeIn 0.6s ease backwards;
     }
 
     /* Responsive */
-    @media (max-width: 768px) {
-      header {
-        padding: 1rem;
+    @media (max-width: 600px) {
+      .hero {
+        height: 60vh;
+        min-height: 400px;
       }
-      
-      .entry-card {
-        grid-template-columns: 1fr auto;
-        gap: 1rem;
-        padding: 1.5rem 1rem;
+
+      .container {
+        padding: 2rem 1.5rem;
       }
-      
-      .entry-number {
-        display: none;
+
+      .stance-section {
+        padding: 1.5rem;
       }
-      
-      .entry-arrow {
-        opacity: 0.3;
-        transform: translateX(0);
-        font-size: 1.5rem;
-      }
-      
-      footer {
-        flex-direction: column;
-        gap: 1.5rem;
-        text-align: center;
+
+      .theories-grid {
+        grid-template-columns: 1fr;
       }
     }
-
-    /* Animations on load */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero-title .line {
-      animation: fadeUp 1s ease backwards;
-    }
-
-    .hero-title .line:nth-child(1) { animation-delay: 0.2s; }
-    .hero-title .line:nth-child(2) { animation-delay: 0.4s; }
-
-    .hero-subtitle {
-      animation: fadeUp 1s ease backwards;
-      animation-delay: 0.6s;
-    }
-
-    .entry-card {
-      animation: fadeUp 0.6s ease backwards;
-    }
-    .entry-card:nth-child(1) { animation-delay: 0.1s; }
-    .entry-card:nth-child(2) { animation-delay: 0.15s; }
-    .entry-card:nth-child(3) { animation-delay: 0.2s; }
-    .entry-card:nth-child(4) { animation-delay: 0.25s; }
-    .entry-card:nth-child(5) { animation-delay: 0.3s; }
-    .entry-card:nth-child(6) { animation-delay: 0.35s; }
-    .entry-card:nth-child(7) { animation-delay: 0.4s; }
   </style>
 </head>
 <body>
-  <header>
-    <span class="logo">Gerben Dezdari</span>
-    <span class="year-badge">2025/26</span>
+  <a class="back-btn" href="index.html">← Back</a>
+
+  <header class="hero">
+    <div class="hero-image"><img src="rozafa-castle.png"></div>
+    <div class="hero-content">
+      <p class="hero-kicker">Entry #2 — Historical Mystery</p>
+      <h1>The Legend of Rozafa Castle</h1>
+      <p class="hero-subtitle">Sacrifice, tragedy, and the endurance of myth</p>
+    </div>
   </header>
 
-  <section class="hero" id="top">
-    <h1 class="hero-title">
-      <span class="line">Year 3</span>
-      <span class="line">Portfolio</span>
-    </h1>
-    <p class="hero-subtitle">shoutout to angerdingus</p>
-    <div class="scroll-hint">Scroll</div>
-  </section>
+  <p class="image-credit">Rozafa Castle overlooking Shkodër, Albania — where the Buna and Drin rivers meet</p>
 
-  <main class="entries-section">
-    <div class="section-header">
-      <span class="section-label">Portfolio Entries</span>
-      <span class="entry-count">[07/07]</span>
+  <main class="container">
+    <div class="intro-quote">
+      <p>Let my breast turn to stone and the castle flourish.<br>May my son become a great hero, ruler of the world.</p>
     </div>
 
-    <div class="entries-grid">
-      <a class="entry-card" href="summer-update.html">
-        <span class="entry-number">[01]</span>
-        <div class="entry-content">
-          <span class="entry-title">Summer Updates</span>
-          <span class="entry-desc">Three highlights and one lowlight with a solution.</span>
-        </div>
-        <span class="entry-arrow">→</span>
-      </a>
+    <article class="content">
+      <p class="lead">Rozafa Castle rises imposingly on a rocky hill near the city of Shkodër in northern Albania, overlooking the confluence of the Buna and Drin rivers. It is one of the most iconic historical sites in the Balkans — but beyond its military and strategic importance throughout history, it is shrouded in a haunting legend that has captivated generations.</p>
 
-      <a class="entry-card" href="Historical-Mystery.html">
-        <span class="entry-number">[02]</span>
-        <div class="entry-content">
-          <span class="entry-title">Historical Mystery</span>
-          <span class="entry-desc">The Mystery of the Rozafa Castle.</span>
-        </div>
-        <span class="entry-arrow">→</span>
-      </a>
+      <h2>The Legend</h2>
 
-      <a class="entry-card" href="Emotions.html">
-        <span class="entry-number">[03]</span>
-        <div class="entry-content">
-          <span class="entry-title">Emotions</span>
-          <span class="entry-desc">Surely a strange encounter...</span>
-        </div>
-        <span class="entry-arrow">→</span>
-      </a>
+      <p>According to the ancient tale, three brothers struggled to build the fortress. No matter how hard they worked during the day, the walls collapsed each night, undoing everything they had accomplished. Desperate for answers, they sought guidance from a wise old man.</p>
 
-      <a class="entry-card" href="Conditional-Story.html">
-        <span class="entry-number">[04]</span>
-        <div class="entry-content">
-          <span class="entry-title">Conditional Story</span>
-          <span class="entry-desc">The what-ifs that shaped my life.</span>
-        </div>
-        <span class="entry-arrow">→</span>
-      </a>
+      <p>The old man told them the structure would only stand if a human sacrifice was made — one of their wives must be buried alive within the walls. The brothers swore an oath of <em>besa</em> (an Albanian code of honor) not to warn their wives, agreeing that whichever wife brought them lunch the next day would be the one chosen.</p>
 
-      <a class="entry-card" href="Wishes.html">
-        <span class="entry-number">[05]</span>
-        <div class="entry-content">
-          <span class="entry-title">Wishes</span>
-          <span class="entry-desc">Oh, the things I wish for...</span>
-        </div>
-        <span class="entry-arrow">→</span>
-      </a>
+      <p>The two older brothers broke their promise and secretly warned their wives. Only the youngest brother kept his word. The next day, it was his wife, Rozafa, who arrived with the food.</p>
 
-      <a class="entry-card placeholder" href="Best-of-2025.html">
-        <span class="entry-number">[06]</span>
-        <div class="entry-content">
-          <span class="entry-title">Best of 2025</span>
-          <span class="entry-desc">Coming soon...</span>
-        </div>
-        <span class="entry-arrow">→</span>
-      </a>
+      <p>Learning of her fate, Rozafa did not protest. But worried about her newborn son, she made one final request: that her right breast, one hand, one eye, and one foot be left exposed from the wall so she could continue to nurse and care for her infant child. The castle finally stood firm.</p>
 
-      <a class="entry-card placeholder" href="Freestyle.html">
-        <span class="entry-number">[07]</span>
-        <div class="entry-content">
-          <span class="entry-title">Freestyle</span>
-          <span class="entry-desc">Coming soon...</span>
+      <p>Even today, a milky white liquid seeps from the stones of Rozafa Castle — believed by locals to be Rozafa's milk, still flowing centuries later for the child she never got to raise.</p>
+
+      <h2>Theories About the Legend</h2>
+
+      <div class="theories-grid">
+        <div class="theory-card">
+          <h3>Folklore & Symbolism</h3>
+          <p>The story of Rozafa is seen as a metaphor for sacrifice, motherhood, and the endurance of the Albanian people. It represents how personal suffering can contribute to the survival of the community. Passed down through oral tradition, the legend reinforces cultural identity and collective memory.</p>
         </div>
-        <span class="entry-arrow">→</span>
-      </a>
-    </div>
+
+        <div class="theory-card">
+          <h3>Historical Context</h3>
+          <p>Some historians suggest the legend reflects the harsh realities of medieval construction and the symbolic importance of women's roles in family and society. Sacrificial myths were common in the Balkans and may have been adapted to explain unexplained structural challenges.</p>
+        </div>
+
+        <div class="theory-card">
+          <h3>Scientific Explanation</h3>
+          <p>The mysterious white liquid seeping from the walls is most likely caused by water passing through limestone, carrying minerals like calcium carbonate. When it dries, it creates a white residue that locals interpreted as "milk." This natural phenomenon gave credibility to the legend over centuries.</p>
+        </div>
+
+        <div class="theory-card">
+          <h3>Mythological Parallels</h3>
+          <p>Similar myths of immurement exist across the Balkans and Eastern Europe. The Rozafa story may be part of a wider mythological tradition where sacrifice ensures stability — linking Albanian folklore to broader regional beliefs and the Serbian epic "The Building of Skadar."</p>
+        </div>
+      </div>
+
+      <div class="divider">✦</div>
+
+      <section class="stance-section">
+        <h2>My Perspective</h2>
+        <p><!-- ✏️ WRITE YOUR OPINION HERE -->[Your thoughts about the legend go here]</p>
+      </section>
+    </article>
   </main>
 
   <footer>
-    <span class="footer-text">© 2026 Gerben Dezdari — All Rights Reserved</span>
-    <div class="footer-links">
-      <a href="#top">Back to Top ↑</a>
-    </div>
+    <p>© 2026 Gerben Dezdari</p>
   </footer>
 </body>
 </html>
