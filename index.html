@@ -3,109 +3,485 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Year 3 Portfolio — Home</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Year 3 Portfolio — Gerben Dezdari</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --text: #ffffff;
+      --muted: #666;
+      --accent-1: #ff3c00;
+      --accent-2: #00ff88;
+      --accent-3: #ffee00;
+      --accent-4: #ff00aa;
+      --accent-5: #00d4ff;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: difference;
+    }
+
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .year-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--text);
+      border-radius: 100px;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 15vw, 12rem);
+      font-weight: 800;
+      line-height: 0.9;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      position: relative;
+    }
+
+    .hero-title .line {
+      display: block;
+      position: relative;
+    }
+
+    .hero-title .line:nth-child(1) {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--text);
+    }
+
+    .hero-title .line:nth-child(2) {
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-4), var(--accent-3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      margin-top: 2rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: bounce 2s ease infinite;
+    }
+
+    .scroll-hint::after {
+      content: '↓';
+      font-size: 1.2rem;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* Entries Section */
+    .entries-section {
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .entry-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent-2);
+    }
+
+    /* Entry Cards - Brutalist Style */
+    .entries-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .entry-card {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem;
+      background: var(--bg);
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .entry-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+    }
+
+    .entry-card:nth-child(1)::before { background: var(--accent-1); }
+    .entry-card:nth-child(2)::before { background: var(--accent-2); }
+    .entry-card:nth-child(3)::before { background: var(--accent-3); }
+    .entry-card:nth-child(4)::before { background: var(--accent-4); }
+    .entry-card:nth-child(5)::before { background: var(--accent-5); }
+
+    .entry-card:hover::before {
+      width: 100%;
+    }
+
+    .entry-card:hover {
+      color: var(--bg);
+    }
+
+    .entry-card:nth-child(3):hover,
+    .entry-card:nth-child(5):hover {
+      color: var(--bg);
+    }
+
+    .entry-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .entry-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      width: 60px;
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
+    }
+
+    .entry-card:hover .entry-number {
+      opacity: 1;
+    }
+
+    .entry-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .entry-title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .entry-desc {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+
+    .entry-card:hover .entry-desc {
+      opacity: 0.8;
+    }
+
+    .entry-arrow {
+      font-size: 2rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.3s ease;
+    }
+
+    .entry-card:hover .entry-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Placeholder cards */
+    .entry-card.placeholder {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .entry-card.placeholder::before {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Footer */
+    footer {
+      padding: 4rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+      
+      .entry-card {
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        padding: 1.5rem 1rem;
+      }
+      
+      .entry-number {
+        display: none;
+      }
+      
+      .entry-arrow {
+        opacity: 0.3;
+        transform: translateX(0);
+        font-size: 1.5rem;
+      }
+      
+      footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+    }
+
+    /* Animations on load */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-title .line {
+      animation: fadeUp 1s ease backwards;
+    }
+
+    .hero-title .line:nth-child(1) { animation-delay: 0.2s; }
+    .hero-title .line:nth-child(2) { animation-delay: 0.4s; }
+
+    .hero-subtitle {
+      animation: fadeUp 1s ease backwards;
+      animation-delay: 0.6s;
+    }
+
+    .entry-card {
+      animation: fadeUp 0.6s ease backwards;
+    }
+    .entry-card:nth-child(1) { animation-delay: 0.1s; }
+    .entry-card:nth-child(2) { animation-delay: 0.15s; }
+    .entry-card:nth-child(3) { animation-delay: 0.2s; }
+    .entry-card:nth-child(4) { animation-delay: 0.25s; }
+    .entry-card:nth-child(5) { animation-delay: 0.3s; }
+    .entry-card:nth-child(6) { animation-delay: 0.35s; }
+    .entry-card:nth-child(7) { animation-delay: 0.4s; }
+  </style>
 </head>
 <body>
-  <header class="site-head">
-    <div class="container head-inner" role="banner">
-      <div class="mark" aria-hidden="true">Y3</div>
-      <div>
-        <h1>Year 3 Portfolio</h1>
-        <p class="byline">by <span class="editable">Gerben Dezdari</span></p>
-      </div>
-    </div>
+  <header>
+    <span class="logo">Gerben Dezdari</span>
+    <span class="year-badge">2024/25</span>
   </header>
 
-  <main class="container">
-    <section class="hero" aria-labelledby="welcome-title">
-      <h2 id="welcome-title">WELCOMMM</h2>
-      <p>Entries listed below :P</p>
-    </section>
+  <section class="hero" id="top">
+    <h1 class="hero-title">
+      <span class="line">Year 3</span>
+      <span class="line">Portfolio</span>
+    </h1>
+    <p class="hero-subtitle">English Class • Semester Documentation</p>
+    <div class="scroll-hint">Scroll</div>
+  </section>
 
-    <h3 class="section-title" id="toc">Table of Contents</h3>
+  <main class="entries-section">
+    <div class="section-header">
+      <span class="section-label">Portfolio Entries</span>
+      <span class="entry-count">[05/07]</span>
+    </div>
 
-    <div class="grid" aria-labelledby="toc" role="list">
-      <!-- Each entry is a separate link-card (content preserved, design brand‑new) -->
-      <a class="card" role="listitem" href="summer-update.html">
-        <span class="kicker">Entry #1</span>
-        <span class="title">Summer Updates</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="card" role="listitem" href="Historical-Mystery.html">
-        <span class="kicker">Entry #2</span>
-        <span class="title">Historical Mystery</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="card" role="listitem" href="Emotions.html">
-        <span class="kicker">Entry #3</span>
-        <span class="title">Newer Entry</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
+    <div class="entries-grid">
+      <a class="entry-card" href="summer-update.html">
+        <span class="entry-number">[01]</span>
+        <div class="entry-content">
+          <span class="entry-title">Summer Updates</span>
+          <span class="entry-desc">Three highlights and one lowlight with a solution.</span>
+        </div>
+        <span class="entry-arrow">→</span>
       </a>
 
-      <!-- Duplicates kept to match provided content exactly -->
-      <a class="card" role="listitem" href="Emotions.html">
-        <span class="kicker">Entry #3</span>
-        <span class="title">Newer Entry</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
+      <a class="entry-card" href="Historical-Mystery.html">
+        <span class="entry-number">[02]</span>
+        <div class="entry-content">
+          <span class="entry-title">Historical Mystery</span>
+          <span class="entry-desc">The haunting legend of Rozafa Castle.</span>
+        </div>
+        <span class="entry-arrow">→</span>
       </a>
-      <a class="card" role="listitem" href="summer-update.html">
-        <span class="kicker">Entry #1</span>
-        <span class="title">Summer Updates</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
+
+      <a class="entry-card" href="Emotions.html">
+        <span class="entry-number">[03]</span>
+        <div class="entry-content">
+          <span class="entry-title">Emotions</span>
+          <span class="entry-desc">A strange encounter and the feelings it triggered.</span>
+        </div>
+        <span class="entry-arrow">→</span>
       </a>
-      <a class="card" role="listitem" href="Historical-Mystery.html">
-        <span class="kicker">Entry #2</span>
-        <span class="title">Newer Entry</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
+
+      <a class="entry-card" href="Conditional-Story.html">
+        <span class="entry-number">[04]</span>
+        <div class="entry-content">
+          <span class="entry-title">Conditional Story</span>
+          <span class="entry-desc">The what-ifs that shaped my life.</span>
+        </div>
+        <span class="entry-arrow">→</span>
       </a>
-      <a class="card" role="listitem" href="Emotions.html">
-        <span class="kicker">Entry #3</span>
-        <span class="title">Newer Entry</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
+
+      <a class="entry-card" href="Wishes.html">
+        <span class="entry-number">[05]</span>
+        <div class="entry-content">
+          <span class="entry-title">Wishes</span>
+          <span class="entry-desc">Oh, the things I wish for...</span>
+        </div>
+        <span class="entry-arrow">→</span>
       </a>
-      <a class="card" role="listitem" href="Emotions.html">
-        <span class="kicker">Entry #3</span>
-        <span class="title">Newer Entry</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
+
+      <a class="entry-card placeholder" href="Best-of-2025.html">
+        <span class="entry-number">[06]</span>
+        <div class="entry-content">
+          <span class="entry-title">Best of 2025</span>
+          <span class="entry-desc">Coming soon...</span>
+        </div>
+        <span class="entry-arrow">→</span>
       </a>
-      <a class="card" role="listitem" href="summer-update.html">
-        <span class="kicker">Entry #1</span>
-        <span class="title">Summer Updates</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="card" role="listitem" href="Historical-Mystery.html">
-        <span class="kicker">Entry #2</span>
-        <span class="title">Newer Entry</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="card" role="listitem" href="Emotions.html">
-        <span class="kicker">Entry #3</span>
-        <span class="title">Newer Entry</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-      <a class="card" role="listitem" href="Emotions.html">
-        <span class="kicker">Entry #3</span>
-        <span class="title">Newer Entry</span>
-        <span class="desc">Three highlights and one lowlight with a solution.</span>
-        <span class="arrow" aria-hidden="true">→</span>
+
+      <a class="entry-card placeholder" href="Freestyle.html">
+        <span class="entry-number">[07]</span>
+        <div class="entry-content">
+          <span class="entry-title">Freestyle</span>
+          <span class="entry-desc">Coming soon...</span>
+        </div>
+        <span class="entry-arrow">→</span>
       </a>
     </div>
   </main>
 
   <footer>
-    <div class="container">© 2025 <span class="editable">Gerben Dezdari</span> — All Rights Reserved</div>
+    <span class="footer-text">© 2025 Gerben Dezdari — All Rights Reserved</span>
+    <div class="footer-links">
+      <a href="#top">Back to Top ↑</a>
+    </div>
   </footer>
 </body>
 </html>

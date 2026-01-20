@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entry #4 – Conditional Story</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --card: #12121a;
+      --text: #e8e8ec;
+      --muted: #8888a0;
+      --reality: #22c55e;
+      --alternate: #f43f5e;
+      --accent: #3b82f6;
+      --glow-reality: rgba(34, 197, 94, 0.3);
+      --glow-alternate: rgba(244, 63, 94, 0.3);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      background-image: 
+        radial-gradient(ellipse at 30% 0%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 100%, rgba(244, 63, 94, 0.06) 0%, transparent 50%);
+    }
+
+    .container { width: min(900px, 92vw); margin-inline: auto; }
+
+    /* Header */
+    header {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(10, 10, 15, 0.9);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .head-inner { display: flex; align-items: center; gap: 1.2rem; }
+    .back {
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    .back:hover { background: rgba(255,255,255,0.1); }
+    h1 { font-size: clamp(1.3rem, 1rem + 1.2vw, 1.8rem); }
+    .subtitle { color: var(--muted); font-size: 0.9rem; margin-top: 0.15rem; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem 3rem;
+    }
+    .hero-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .hero h2 {
+      font-size: clamp(1.8rem, 1.2rem + 2vw, 2.6rem);
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+    }
+    .hero p { color: var(--muted); max-width: 550px; margin-inline: auto; }
+
+    /* Decision Point */
+    .decision-point {
+      background: var(--card);
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+      margin: 2rem 0;
+      position: relative;
+    }
+    .decision-point::before {
+      content: 'THE DECISION';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    .decision-point h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .decision-point p {
+      color: var(--muted);
+    }
+
+    /* Timeline Split */
+    .timeline-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .timeline-path {
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .timeline-path.reality {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.02));
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    .timeline-path.alternate {
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.1), rgba(244, 63, 94, 0.02));
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+
+    .path-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .path-label .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .reality .path-label { color: var(--reality); }
+    .reality .path-label .dot { background: var(--reality); box-shadow: 0 0 10px var(--glow-reality); }
+    .alternate .path-label { color: var(--alternate); }
+    .alternate .path-label .dot { background: var(--alternate); box-shadow: 0 0 10px var(--glow-alternate); }
+
+    .path-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .reality .path-title { color: var(--reality); }
+    .alternate .path-title { color: var(--alternate); }
+
+    .path-content p {
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .path-content p:last-child { margin-bottom: 0; }
+
+    /* Highlights */
+    .highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      font-size: 0.95rem;
+    }
+    .highlight-item .icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .reality .highlight-item .icon { color: var(--reality); }
+    .alternate .highlight-item .icon { color: var(--alternate); }
+
+    /* Conclusion */
+    .conclusion {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+      margin: 3rem 0;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .conclusion h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    .conclusion p {
+      color: var(--muted);
+      max-width: 600px;
+      margin-inline: auto;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 1.5rem 0;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .decision-point, .timeline-path, .conclusion {
+      animation: fadeIn 0.6s ease backwards;
+    }
+    .decision-point { animation-delay: 0.1s; }
+    .timeline-path.reality { animation-delay: 0.3s; }
+    .timeline-path.alternate { animation-delay: 0.4s; }
+    .conclusion { animation-delay: 0.5s; }
+
+    @media (max-width: 700px) {
+      .timeline-split {
+        grid-template-columns: 1fr;
+      }
+      .timeline-path { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container head-inner">
+      <a class="back" href="index.html" aria-label="Back to home">← Back</a>
+      <div>
+        <h1>Entry #4: Conditional Story</h1>
+        <p class="subtitle">Two timelines, one decision</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="hero-icon">⑂</span>
+      <h2>The Fork in the Road</h2>
+      <p>Every choice creates a new timeline. This is the story of how one decision shaped everything — my friendships, my knowledge, and who I am today.</p>
+    </section>
+
+    <div class="decision-point">
+      <h3>Starting an Apprenticeship at a Company Partnered with ZLI</h3>
+      <p>The choice that would determine which version of my life I would live.</p>
+    </div>
+
+    <div class="timeline-split">
+      <article class="timeline-path reality">
+        <div class="path-label"><span class="dot"></span> What Actually Happened</div>
+        <h3 class="path-title">The Path I Took</h3>
+        <div class="path-content">
+          <p>I started my apprenticeship at a company that sent me to ZLI in my first year. From day one, I was surrounded by people who shared my interests and ambitions in IT.</p>
+          <p>The connections I made there weren't just classmates — they became close friends. We learned together, struggled through projects together, and celebrated our successes together.</p>
+          <p>ZLI gave me more than just technical knowledge. It gave me a community, a support system, and friendships that continue to this day.</p>
+        </div>
+        <div class="highlights">
+          <div class="highlight-item">
+            <span class="icon">✓</span>
+            <span>Built deep, lasting friendships with like-minded people</span>
+          </div>
+          <div class="highlight-item">
+            <span class="icon">✓</span>
+            <span>Gained extensive IT knowledge and practical skills</span>
+          </div>
+          <div class="highlight-item">
+            <span class="icon">✓</span>
+            <span>Found a supportive community that pushed me to grow</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="timeline-path alternate">
+        <div class="path-label"><span class="dot"></span> The Alternate Timeline</div>
+        <h3 class="path-title">If I Hadn't Gone to ZLI...</h3>
+        <div class="path-content">
+          <p>If I had started an apprenticeship where I wasn't sent to ZLI in the first year, my life would look completely different today.</p>
+          <p>I probably would have ended up in a different friend group — people I might barely talk to now. Without ZLI, those deep connections would never have formed.</p>
+          <p>My IT knowledge would be nowhere near what it is today. ZLI challenged me, pushed me, and gave me the foundation that everything else is built on.</p>
+        </div>
+        <div class="highlights">
+          <div class="highlight-item">
+            <span class="icon">✗</span>
+            <span>Would have missed out on close friendships</span>
+          </div>
+          <div class="highlight-item">
+            <span class="icon">✗</span>
+            <span>Would lack the depth of IT knowledge I have now</span>
+          </div>
+          <div class="highlight-item">
+            <span class="icon">✗</span>
+            <span>Might be in a friend group I barely connect with</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <section class="conclusion">
+      <h3>Looking Back</h3>
+      <p>Sometimes the biggest changes in our lives come from decisions we didn't even know were important at the time. Choosing that apprenticeship wasn't just about a job — it was about finding my people and becoming who I am. I'm grateful for the timeline I'm in.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2025 <span class="editable">Gerben Dezdari</span></div>
+  </footer>
+</body>
+</html>

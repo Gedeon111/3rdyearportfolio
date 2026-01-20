@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entry #3 – Emotions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1a2e;
+      --card-bg: #16213e;
+      --text: #eaeaea;
+      --muted: #a0a0b0;
+      --offended: #e94560;
+      --astonished: #f9a826;
+      --bewildered: #7b68ee;
+      --delighted: #2ecc71;
+      --gobsmacked: #00d9ff;
+      --gradient: linear-gradient(135deg, #e94560, #f9a826, #7b68ee, #2ecc71, #00d9ff);
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(233, 69, 96, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 30%, rgba(249, 168, 38, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse at 60% 80%, rgba(123, 104, 238, 0.12) 0%, transparent 45%),
+        radial-gradient(ellipse at 10% 90%, rgba(46, 204, 113, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 90%, rgba(0, 217, 255, 0.08) 0%, transparent 35%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container { width: min(1000px, 92vw); margin-inline: auto; position: relative; z-index: 1; }
+
+    /* Header */
+    header {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(26, 26, 46, 0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .head-inner { display: flex; align-items: center; gap: 1.2rem; }
+    .back {
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+    .back:hover { background: rgba(255,255,255,0.1); transform: translateX(-3px); }
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem);
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin-top: 0.2rem; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+    .hero h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem);
+      margin-bottom: 0.5rem;
+    }
+    .hero p { color: var(--muted); max-width: 600px; margin-inline: auto; }
+
+    /* Emotion Cards */
+    .emotions-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1rem 0 3rem;
+    }
+
+    .emotion-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .emotion-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .emotion-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+    }
+
+    .emotion-card.offended::before { background: var(--offended); }
+    .emotion-card.offended:hover { box-shadow: 0 20px 60px rgba(233, 69, 96, 0.2); }
+    .emotion-card.offended .emotion-label { color: var(--offended); }
+
+    .emotion-card.astonished::before { background: var(--astonished); }
+    .emotion-card.astonished:hover { box-shadow: 0 20px 60px rgba(249, 168, 38, 0.2); }
+    .emotion-card.astonished .emotion-label { color: var(--astonished); }
+
+    .emotion-card.bewildered::before { background: var(--bewildered); }
+    .emotion-card.bewildered:hover { box-shadow: 0 20px 60px rgba(123, 104, 238, 0.2); }
+    .emotion-card.bewildered .emotion-label { color: var(--bewildered); }
+
+    .emotion-card.delighted::before { background: var(--delighted); }
+    .emotion-card.delighted:hover { box-shadow: 0 20px 60px rgba(46, 204, 113, 0.2); }
+    .emotion-card.delighted .emotion-label { color: var(--delighted); }
+
+    .emotion-card.gobsmacked::before { background: var(--gobsmacked); }
+    .emotion-card.gobsmacked:hover { box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2); }
+    .emotion-card.gobsmacked .emotion-label { color: var(--gobsmacked); }
+
+    .emotion-label {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .emotion-label .num {
+      font-size: 0.8rem;
+      opacity: 0.5;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+
+    .emotion-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    /* Context Box */
+    .context-box {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      border: 1px dashed rgba(255,255,255,0.1);
+    }
+    .context-box h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      color: var(--muted);
+    }
+    .context-box p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 1.5rem 0;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .emotion-card {
+      animation: fadeInUp 0.6s ease backwards;
+    }
+    .emotion-card:nth-child(1) { animation-delay: 0.1s; }
+    .emotion-card:nth-child(2) { animation-delay: 0.2s; }
+    .emotion-card:nth-child(3) { animation-delay: 0.3s; }
+    .emotion-card:nth-child(4) { animation-delay: 0.4s; }
+    .emotion-card:nth-child(5) { animation-delay: 0.5s; }
+
+    @media (max-width: 600px) {
+      .emotion-card { padding: 1.5rem; }
+      .emotion-label { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container head-inner">
+      <a class="back" href="index.html" aria-label="Back to home">← Back</a>
+      <div>
+        <h1>Entry #3: Emotions</h1>
+        <p class="subtitle">Five words, five moments, one story</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>A Spectrum of Feelings</h2>
+      <p>Life throws unexpected moments at us. Here are five emotions I experienced during one unforgettable encounter on the streets of Zurich.</p>
+    </section>
+
+    <div class="emotions-grid">
+      <article class="emotion-card offended">
+        <div class="emotion-label"><span class="num">01</span> Offended</div>
+        <p class="emotion-text">I felt deeply offended when I was walking to lunch from TBZ, and some random guy on a bicycle screamed "JUGO" at me. It was such a sudden, unprovoked attack on my identity — a word meant to demean, thrown carelessly by a stranger who didn't know anything about me.</p>
+      </article>
+
+      <article class="emotion-card astonished">
+        <div class="emotion-label"><span class="num">02</span> Astonished</div>
+        <p class="emotion-text">I was astonished that someone would have the audacity to shout something like that in the middle of streets filled with people from all backgrounds. In broad daylight, surrounded by migrants and locals alike — he just didn't care. The boldness of his ignorance left me speechless.</p>
+      </article>
+
+      <article class="emotion-card bewildered">
+        <div class="emotion-label"><span class="num">03</span> Bewildered</div>
+        <p class="emotion-text">What bewildered me most was his complete lack of awareness. Did he not realize how many people around him might be affected by such words? Did he not consider the impact of his actions? I couldn't understand the thought process — or lack thereof — behind such behaviour.</p>
+      </article>
+
+      <article class="emotion-card delighted">
+        <div class="emotion-label"><span class="num">04</span> Delighted</div>
+        <p class="emotion-text">He, on the other hand, seemed absolutely delighted with himself. As he cycled away, there was this smug satisfaction on his face — like he'd accomplished something clever. His twisted sense of joy at causing discomfort was almost as disturbing as the slur itself.</p>
+      </article>
+
+      <article class="emotion-card gobsmacked">
+        <div class="emotion-label"><span class="num">05</span> Gobsmacked</div>
+        <p class="emotion-text">In the end, I was left completely gobsmacked. Standing there on the pavement, processing what had just happened. It wasn't fear or anger that hit me first — it was pure disbelief. In 2025, in Zurich, this still happens. That realization stayed with me long after he disappeared from view.</p>
+      </article>
+    </div>
+
+    <section class="context-box">
+      <h3>Reflection</h3>
+      <p>This single incident taught me how quickly emotions can cascade from one to another. What started as offence transformed through astonishment, bewilderment, and observation, finally settling into a profound sense of disbelief. These moments remind us that our emotional landscape is rarely simple — it's a spectrum, constantly shifting with our experiences.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2025 <span class="editable">Gerben Dezdari</span></div>
+  </footer>
+</body>
+</html>

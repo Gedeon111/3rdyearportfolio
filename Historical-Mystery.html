@@ -3,131 +3,393 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Entry #3 — Rozafa Castle Mystery</title>
+  <title>Entry #2 – The Mystery of Rozafa Castle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #0f0d0a;
+      --text: #e8e4dc;
+      --muted: #9a9488;
+      --accent: #c9a959;
+      --accent-dark: #8b7635;
+      --card: rgba(255, 255, 255, 0.03);
+      --border: rgba(201, 169, 89, 0.2);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      font-family: Georgia, 'Times New Roman', serif;
-      line-height: 1.7;
-      background: #f4f1ea;
-      color: #2e261b;
+      font-family: 'Crimson Pro', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 18px;
     }
-    header {
-      background: #3b2f2f;
-      color: #fdfaf6;
-      padding: 1.5rem;
-      text-align: center;
+
+    /* Hero Image Section */
+    .hero {
+      position: relative;
+      height: 70vh;
+      min-height: 500px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
     }
-    header a.back {
+
+    .hero-image {
       position: absolute;
-      left: 1rem;
-      top: 1.2rem;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        linear-gradient(to bottom, rgba(15, 13, 10, 0) 0%, rgba(15, 13, 10, 0.3) 50%, rgba(15, 13, 10, 1) 100%),
+        url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/ca/c0/10/rozafa-castle.jpg?w=1200&h=-1&s=1') center/cover no-repeat;
+      filter: sepia(20%) saturate(80%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 3rem 2rem;
+      max-width: 800px;
+    }
+
+    .hero-kicker {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1.2rem;
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
       text-decoration: none;
-      color: #fdfaf6;
-      background: #8b5e3c;
-      padding: .4rem .8rem;
-      border-radius: 6px;
-      font-weight: bold;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      background: rgba(15, 13, 10, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 0.7rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: all 0.3s ease;
     }
-    h1 {
-      margin: 0;
-      font-size: 2rem;
+
+    .back-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
     }
-    .subtitle {
-      font-size: 1rem;
-      margin-top: .3rem;
-      color: #e3d5c0;
+
+    /* Main Content */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
     }
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+
+    /* Intro Quote */
+    .intro-quote {
+      position: relative;
+      padding: 2rem 0;
+      margin-bottom: 3rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
-    .intro {
-      background: #fff;
-      border-left: 6px solid #8b5e3c;
-      padding: 1.2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    .intro-quote::before {
+      content: '"';
+      font-family: 'Cinzel', serif;
+      font-size: 6rem;
+      color: var(--accent);
+      opacity: 0.3;
+      position: absolute;
+      top: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      line-height: 1;
     }
-    .intro p { margin-top: 0; }
-    section {
+
+    .intro-quote p {
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Section Headers */
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin: 3rem 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    h2::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* Paragraphs */
+    .content p {
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+
+    .content p.lead {
+      font-size: 1.2rem;
+      color: var(--text);
+    }
+
+    /* Theories Grid */
+    .theories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
       margin: 2rem 0;
     }
-    h2 {
-      color: #3b2f2f;
-      border-bottom: 2px solid #8b5e3c;
-      padding-bottom: .3rem;
-    }
-    .theories {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: 1fr 1fr;
-    }
-    .theory {
-      background: #fff;
-      padding: 1rem;
+
+    .theory-card {
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 1.8rem;
+      position: relative;
+      transition: all 0.3s ease;
     }
-    .theory h3 { margin-top: 0; color: #8b5e3c; }
-    .stance {
-      background: #fff7f0;
-      border: 2px solid #8b5e3c;
-      padding: 1rem;
-      border-radius: 8px;
+
+    .theory-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
-    footer {
-      background: #3b2f2f;
-      color: #e3d5c0;
+
+    .theory-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .theory-card h3::before {
+      content: '◆';
+      font-size: 0.6rem;
+    }
+
+    .theory-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* My Stance Section */
+    .stance-section {
+      background: linear-gradient(135deg, rgba(201, 169, 89, 0.1), rgba(201, 169, 89, 0.02));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stance-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--accent-dark));
+    }
+
+    .stance-section h2 {
+      margin-top: 0;
+    }
+
+    .stance-section h2::before {
+      display: none;
+    }
+
+    /* Image Caption */
+    .image-credit {
       text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
+      padding: 1rem 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* Decorative Elements */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 3rem 0;
+      color: var(--accent);
+      opacity: 0.5;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      width: 60px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content {
+      animation: fadeIn 1s ease backwards;
+      animation-delay: 0.3s;
+    }
+
+    .content > * {
+      animation: fadeIn 0.6s ease backwards;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero {
+        height: 60vh;
+        min-height: 400px;
+      }
+
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      .stance-section {
+        padding: 1.5rem;
+      }
+
+      .theories-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <a class="back" href="index.html">← Back</a>
-    <h1>Entry #3 — The Mystery of Rozafa Castle</h1>
-    <p class="subtitle">Legend, history, and interpretations</p>
+  <a class="back-btn" href="index.html">← Back</a>
+
+  <header class="hero">
+    <div class="hero-image"></div>
+    <div class="hero-content">
+      <p class="hero-kicker">Entry #2 — Historical Mystery</p>
+      <h1>The Legend of Rozafa Castle</h1>
+      <p class="hero-subtitle">Sacrifice, tragedy, and the endurance of myth</p>
+    </div>
   </header>
 
-  <main>
-    <section class="intro">
-      <p>Rozafa Castle, overlooking the city of Shkodër in northern Albania, is one of the most iconic historical sites in the Balkans. Beyond its military and strategic importance throughout history, it is shrouded in a haunting legend. According to the tale, three brothers struggled to build the fortress: the walls collapsed each night, undoing the work of the day. Seeking guidance, they were told the structure would only stand if a human sacrifice was made. The brothers agreed to immure one of their wives, swearing not to warn them. The youngest brother kept his oath, and his wife Rozafa was chosen. Before being walled in, she begged to leave her right breast, one hand, and one foot exposed, so she could care for her newborn child. The castle finally stood firm. Even today, a milky white liquid seeps from its stones, believed by locals to be Rozafa’s milk.</p>
-    </section>
+  <p class="image-credit">Rozafa Castle overlooking Shkodër, Albania — where the Buna and Drin rivers meet</p>
 
-    <section>
+  <main class="container">
+    <div class="intro-quote">
+      <p>Let my breast turn to stone and the castle flourish.<br>May my son become a great hero, ruler of the world.</p>
+    </div>
+
+    <article class="content">
+      <p class="lead">Rozafa Castle rises imposingly on a rocky hill near the city of Shkodër in northern Albania, overlooking the confluence of the Buna and Drin rivers. It is one of the most iconic historical sites in the Balkans — but beyond its military and strategic importance throughout history, it is shrouded in a haunting legend that has captivated generations.</p>
+
+      <h2>The Legend</h2>
+
+      <p>According to the ancient tale, three brothers struggled to build the fortress. No matter how hard they worked during the day, the walls collapsed each night, undoing everything they had accomplished. Desperate for answers, they sought guidance from a wise old man.</p>
+
+      <p>The old man told them the structure would only stand if a human sacrifice was made — one of their wives must be buried alive within the walls. The brothers swore an oath of <em>besa</em> (an Albanian code of honor) not to warn their wives, agreeing that whichever wife brought them lunch the next day would be the one chosen.</p>
+
+      <p>The two older brothers broke their promise and secretly warned their wives. Only the youngest brother kept his word. The next day, it was his wife, Rozafa, who arrived with the food.</p>
+
+      <p>Learning of her fate, Rozafa did not protest. But worried about her newborn son, she made one final request: that her right breast, one hand, one eye, and one foot be left exposed from the wall so she could continue to nurse and care for her infant child. The castle finally stood firm.</p>
+
+      <p>Even today, a milky white liquid seeps from the stones of Rozafa Castle — believed by locals to be Rozafa's milk, still flowing centuries later for the child she never got to raise.</p>
+
       <h2>Theories About the Legend</h2>
-      <div class="theories">
-        <div class="theory">
-          <h3>Folklore and Symbolism</h3>
+
+      <div class="theories-grid">
+        <div class="theory-card">
+          <h3>Folklore & Symbolism</h3>
           <p>The story of Rozafa is seen as a metaphor for sacrifice, motherhood, and the endurance of the Albanian people. It represents how personal suffering can contribute to the survival of the community. Passed down through oral tradition, the legend reinforces cultural identity and collective memory.</p>
         </div>
-        <div class="theory">
+
+        <div class="theory-card">
           <h3>Historical Context</h3>
-          <p>Some historians suggest the legend reflects the harsh realities of medieval construction and the symbolic importance of women’s roles in family and society. Sacrificial myths were common in the Balkans and may have been adapted to explain unexplained structural challenges in building the fortress.</p>
+          <p>Some historians suggest the legend reflects the harsh realities of medieval construction and the symbolic importance of women's roles in family and society. Sacrificial myths were common in the Balkans and may have been adapted to explain unexplained structural challenges.</p>
         </div>
-        <div class="theory">
+
+        <div class="theory-card">
           <h3>Scientific Explanation</h3>
-          <p>The mysterious white liquid seeping from the walls is most likely caused by water passing through limestone, carrying minerals like calcium carbonate. When it dries, it creates a white residue that locals interpreted as “milk.” This natural phenomenon gave credibility to the legend over centuries.</p>
+          <p>The mysterious white liquid seeping from the walls is most likely caused by water passing through limestone, carrying minerals like calcium carbonate. When it dries, it creates a white residue that locals interpreted as "milk." This natural phenomenon gave credibility to the legend over centuries.</p>
         </div>
-        <div class="theory">
+
+        <div class="theory-card">
           <h3>Mythological Parallels</h3>
-          <p>Similar myths of immurement exist across the Balkans and Eastern Europe. The Rozafa story may be part of a wider mythological tradition where sacrifice ensures stability — linking Albanian folklore to broader regional beliefs.</p>
+          <p>Similar myths of immurement exist across the Balkans and Eastern Europe. The Rozafa story may be part of a wider mythological tradition where sacrifice ensures stability — linking Albanian folklore to broader regional beliefs and the Serbian epic "The Building of Skadar."</p>
         </div>
       </div>
-    </section>
 
-    <section class="stance">
-      <h2>My Stance</h2>
-      <p>I find the legend of Rozafa Castle both tragic and inspiring. It captures the deep cultural values of sacrifice, loyalty, and resilience. While I admire the folklore and recognize its importance to Albanian heritage, I personally believe the scientific explanation — mineral-rich water creating the white residue — best explains the physical mystery. Still, the legend remains invaluable as a story that connects generations and preserves a unique cultural identity.</p>
-    </section>
+      <div class="divider">✦</div>
+
+      <section class="stance-section">
+        <h2>My Perspective</h2>
+        <p>I find the legend of Rozafa Castle both tragic and inspiring. It captures the deep cultural values of sacrifice, loyalty, and resilience that are so important to Albanian heritage. The story of a mother's love transcending even death — her determination to care for her child despite her fate — resonates across cultures and generations.</p>
+        <p>While I admire the folklore and recognize its importance to my heritage, I personally believe the scientific explanation — mineral-rich water creating the white residue — best explains the physical mystery. But that doesn't diminish the legend's power. Stories like Rozafa's remind us that myths aren't about literal truth; they're about the values and emotions we pass down through generations.</p>
+        <p>The legend remains invaluable as a story that connects Albanians to their past and preserves a unique cultural identity that has survived empires, wars, and centuries of change.</p>
+      </section>
+    </article>
   </main>
 
   <footer>
-    <p>© 2025 <span class="editable">Gerben Dezdari</span></p>
+    <p>© 2025 Gerben Dezdari</p>
   </footer>
 </body>
 </html>

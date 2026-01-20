@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entry #5 – Wishes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d1a;
+      --card: rgba(255, 255, 255, 0.03);
+      --text: #e8e6f0;
+      --muted: #9390a8;
+      --present: #fbbf24;
+      --annoying: #f472b6;
+      --regret: #60a5fa;
+      --star: #fff8dc;
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Starry Background */
+    .stars {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--star);
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: twinkle 3s ease-in-out infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .gradient-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(ellipse at 20% 10%, rgba(251, 191, 36, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 30%, rgba(244, 114, 182, 0.06) 0%, transparent 35%),
+        radial-gradient(ellipse at 50% 80%, rgba(96, 165, 250, 0.08) 0%, transparent 45%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .container { width: min(900px, 92vw); margin-inline: auto; position: relative; z-index: 2; }
+
+    /* Header */
+    header {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(13, 13, 26, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .head-inner { display: flex; align-items: center; gap: 1.2rem; }
+    .back {
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+    .back:hover { background: rgba(255,255,255,0.1); }
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem);
+      font-weight: 600;
+    }
+    .subtitle { color: var(--muted); font-size: 0.9rem; margin-top: 0.15rem; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem 2rem;
+    }
+    .hero-icon {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.5));
+    }
+    .hero h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2rem, 1.4rem + 2.5vw, 3rem);
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #fbbf24, #f472b6, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p { color: var(--muted); max-width: 500px; margin-inline: auto; font-size: 1.05rem; }
+
+    /* Wish Categories */
+    .wish-section {
+      margin: 3rem 0;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* Present Wishes */
+    .present .section-icon { background: rgba(251, 191, 36, 0.15); color: var(--present); }
+    .present .section-title { color: var(--present); }
+
+    /* Annoying Wishes */
+    .annoying .section-icon { background: rgba(244, 114, 182, 0.15); color: var(--annoying); }
+    .annoying .section-title { color: var(--annoying); }
+
+    /* Regret Wishes */
+    .regret .section-icon { background: rgba(96, 165, 250, 0.15); color: var(--regret); }
+    .regret .section-title { color: var(--regret); }
+
+    /* Wish Cards */
+    .wish-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .wish-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .wish-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .wish-card::before {
+      content: '✦';
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.2rem;
+      opacity: 0.3;
+    }
+
+    .present .wish-card { border-color: rgba(251, 191, 36, 0.2); }
+    .present .wish-card:hover { box-shadow: 0 20px 50px rgba(251, 191, 36, 0.15); }
+    .present .wish-card::before { color: var(--present); }
+
+    .annoying .wish-card { border-color: rgba(244, 114, 182, 0.2); }
+    .annoying .wish-card:hover { box-shadow: 0 20px 50px rgba(244, 114, 182, 0.15); }
+    .annoying .wish-card::before { color: var(--annoying); }
+
+    .regret .wish-card { border-color: rgba(96, 165, 250, 0.2); }
+    .regret .wish-card:hover { box-shadow: 0 20px 50px rgba(96, 165, 250, 0.15); }
+    .regret .wish-card::before { color: var(--regret); }
+
+    .wish-text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    .wish-text .keyword {
+      font-weight: 700;
+      font-style: normal;
+    }
+    .present .keyword { color: var(--present); }
+    .annoying .keyword { color: var(--annoying); }
+    .regret .keyword { color: var(--regret); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 1.5rem 0;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .wish-section {
+      animation: fadeInUp 0.7s ease backwards;
+    }
+    .wish-section:nth-child(2) { animation-delay: 0.1s; }
+    .wish-section:nth-child(3) { animation-delay: 0.3s; }
+    .wish-section:nth-child(4) { animation-delay: 0.5s; }
+
+    @media (max-width: 600px) {
+      .wish-card { padding: 1.4rem; }
+      .wish-text { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Starry Background -->
+  <div class="stars" aria-hidden="true">
+    <div class="star" style="top: 5%; left: 10%; animation-delay: 0s;"></div>
+    <div class="star" style="top: 12%; left: 25%; animation-delay: 0.5s;"></div>
+    <div class="star" style="top: 8%; left: 45%; animation-delay: 1s;"></div>
+    <div class="star" style="top: 15%; left: 70%; animation-delay: 1.5s;"></div>
+    <div class="star" style="top: 3%; left: 85%; animation-delay: 0.3s;"></div>
+    <div class="star" style="top: 25%; left: 5%; animation-delay: 2s;"></div>
+    <div class="star" style="top: 30%; left: 90%; animation-delay: 0.8s;"></div>
+    <div class="star" style="top: 45%; left: 15%; animation-delay: 1.2s;"></div>
+    <div class="star" style="top: 50%; left: 80%; animation-delay: 0.2s;"></div>
+    <div class="star" style="top: 60%; left: 35%; animation-delay: 1.8s;"></div>
+    <div class="star" style="top: 70%; left: 60%; animation-delay: 0.6s;"></div>
+    <div class="star" style="top: 75%; left: 8%; animation-delay: 1.4s;"></div>
+    <div class="star" style="top: 80%; left: 92%; animation-delay: 0.9s;"></div>
+    <div class="star" style="top: 85%; left: 50%; animation-delay: 2.2s;"></div>
+    <div class="star" style="top: 92%; left: 20%; animation-delay: 0.4s;"></div>
+  </div>
+  <div class="gradient-overlay"></div>
+
+  <header>
+    <div class="container head-inner">
+      <a class="back" href="index.html" aria-label="Back to home">← Back</a>
+      <div>
+        <h1>Entry #5: Wishes</h1>
+        <p class="subtitle">Dreams, frustrations, and regrets</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="hero-icon">🌟</span>
+      <h2>If Only...</h2>
+      <p>Six wishes across three dimensions of time — what I want now, what frustrates me, and what I'd change about the past.</p>
+    </section>
+
+    <section class="wish-section present">
+      <div class="section-header">
+        <div class="section-icon">☀️</div>
+        <div>
+          <h3 class="section-title">Wishes for the Present</h3>
+          <p class="section-subtitle">Things I wish were different right now</p>
+        </div>
+      </div>
+      <div class="wish-grid">
+        <article class="wish-card">
+          <p class="wish-text">"I <span class="keyword">wish</span> I <span class="keyword">were</span> rich, so I could focus on what I love without constantly worrying about money."</p>
+        </article>
+        <article class="wish-card">
+          <p class="wish-text">"I <span class="keyword">wish</span> I <span class="keyword">didn't have</span> to ride the train every day — it takes so much time out of my life."</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wish-section annoying">
+      <div class="section-header">
+        <div class="section-icon">😤</div>
+        <div>
+          <h3 class="section-title">Wishes About Annoying Things</h3>
+          <p class="section-subtitle">Frustrations I'd love to see disappear</p>
+        </div>
+      </div>
+      <div class="wish-grid">
+        <article class="wish-card">
+          <p class="wish-text">"I <span class="keyword">wish</span> people <span class="keyword">would stop</span> smelling so bad on public transport — it makes the daily commute unbearable."</p>
+        </article>
+        <article class="wish-card">
+          <p class="wish-text">"I <span class="keyword">wish</span> they <span class="keyword">would remove</span> the rule that dogs aren't allowed at TBZ — I'd love to bring mine."</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wish-section regret">
+      <div class="section-header">
+        <div class="section-icon">⏳</div>
+        <div>
+          <h3 class="section-title">Wishes for Past Regrets</h3>
+          <p class="section-subtitle">What I would change if I could go back</p>
+        </div>
+      </div>
+      <div class="wish-grid">
+        <article class="wish-card">
+          <p class="wish-text">"I <span class="keyword">wish</span> I <span class="keyword">had invested</span> in Bitcoin when I was younger instead of being too young to understand its potential."</p>
+        </article>
+        <article class="wish-card">
+          <p class="wish-text">"I <span class="keyword">wish</span> I <span class="keyword">had bought</span> a better laptop at the beginning of my apprenticeship — it would have made everything easier."</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2025 <span class="editable">Gerben Dezdari</span></div>
+  </footer>
+</body>
+</html>
